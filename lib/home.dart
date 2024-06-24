@@ -17,9 +17,8 @@ class home extends StatelessWidget {
             Column(
               children: [
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16), 
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -27,8 +26,7 @@ class home extends StatelessWidget {
                       print("r4g4rg4r");
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(
-                          0), 
+                      padding: const EdgeInsets.all(0),
                       child: Column(
                         children: [
                           Image.asset(
@@ -42,9 +40,8 @@ class home extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16), 
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -63,9 +60,8 @@ class home extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16), 
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -88,9 +84,8 @@ class home extends StatelessWidget {
             Column(
               children: [
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16),
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -109,9 +104,8 @@ class home extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16),
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -130,9 +124,8 @@ class home extends StatelessWidget {
                   ),
                 ),
                 Card(
-                  elevation: 4, 
-                  margin:
-                      const EdgeInsets.all(16),
+                  elevation: 4,
+                  margin: const EdgeInsets.all(16),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(10),
                     hoverColor: const Color.fromARGB(255, 233, 222, 222),
@@ -155,37 +148,45 @@ class home extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(items:  [
-        BottomNavigationBarItem(
-activeIcon: IconButton(onPressed: () {
-  Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => cadastrocategoria()), 
-            );
-}, icon: const Icon (Icons.home_outlined,color: Colors.black,)),
-            icon: Icon(Icons.home_outlined, color: Colors.black), label: ""),
-              BottomNavigationBarItem(
-                
-activeIcon: IconButton(onPressed: () {
-  Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => cadastroproduto()), 
-            );
-}, icon: const Icon (Icons.auto_awesome_mosaic_outlined, color: Colors.black,)),
-            icon: Icon(Icons.auto_awesome_mosaic_outlined, color: Colors.black), label: ""), 
-        const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_bag_outlined,
-              color: Colors.black,
-            ),
-            label: ""),
-        const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-            label: "")
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home_outlined, color: Colors.black),
+                label: ""),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.auto_awesome_mosaic_outlined,
+                    color: Colors.black),
+                label: ""),
+            const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.shopping_bag_outlined,
+                  color: Colors.black,
+                ),
+                label: ""),
+            const BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ),
+                label: "")
+          ],
+          onTap: (int index) {
+            switch (index) {
+              case 0:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => cadastrocategoria()),
+                );
+                break;
+              case 1:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => cadastroproduto()),
+                );
+                break;
+              default:
+            }
+          }),
     );
   }
 }
