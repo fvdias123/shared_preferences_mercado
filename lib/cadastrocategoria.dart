@@ -1,6 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences_mercado/objects/categoria.dart';
+import 'package:shared_preferences_mercado/server/shared_preference_service.dart';
 
-class cadastrocategoria extends StatelessWidget {
+class cadastrocategoria extends StatefulWidget {
+  @override
+  State<cadastrocategoria> createState() => _cadastrocategoriaState();
+}
+
+class _cadastrocategoriaState extends State<cadastrocategoria> {
+ List<Categoria> _categorias = [];
+
+  final SharedPreferenceService _preferencesService = SharedPreferenceService();
+
+  final TextEditingController _nomeController = TextEditingController();
+  String _imagemController = "";
+
+  Future<void> _loadCategorias() async {
+    List<Categoria> categorias = await _preferencesService.getCategorias();
+    setState(() {
+      _categorias = categorias;
+    });
+  }
+
+  Future<void> _addCategorias() async {
+    if (_nomeController.text.isNotEmpty && _nomeController.text.isNotEmpty) {
+      setState(() {
+        _categorias.add(Categoria(name: _nomeController.text,imagem: _imagemController ));
+        _nomeController.clear();
+        _imagemController = "";
+      });
+      await _preferencesService.saveCategorias(_categorias);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCategorias();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

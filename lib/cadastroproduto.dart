@@ -31,6 +31,20 @@ class cadastroproduto extends StatelessWidget {
                 ],              
               ),
           
+                            TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.arrow_back_ios_new_outlined,),
+                          hintText: 'Descrição (Opcional)',            
+                          filled: true,
+                          fillColor: Color.fromARGB(255, 221, 216, 216),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide.none                      
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 50),
+
                   TextField(
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.label_outline),
@@ -44,8 +58,8 @@ class cadastroproduto extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 50),
-              
-                  GestureDetector(
+                      
+                             GestureDetector(
                     onTap: (){},
                     child: InkWell(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -54,7 +68,6 @@ class cadastroproduto extends StatelessWidget {
                       },
                       hoverColor: const Color.fromARGB(255, 197, 62, 62),
                       child: Container(
-                        decoration: BoxDecoration(),
                         width: double.maxFinite,
                         height: 180,
                         color: Color.fromARGB(255, 221, 216, 216),
@@ -68,6 +81,7 @@ class cadastroproduto extends StatelessWidget {
                     ),
                   ),
                       SizedBox(height: 50),
+   
                 ],              
           ),
         ),

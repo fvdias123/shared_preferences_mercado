@@ -1,8 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences_mercado/cadastrocategoria.dart';
 import 'package:shared_preferences_mercado/cadastroproduto.dart';
+import 'package:shared_preferences_mercado/components/card.dart';
+import 'package:shared_preferences_mercado/morewhishlist.dart';
+import 'package:shared_preferences_mercado/objects/Categoria.dart';
+import 'package:shared_preferences_mercado/objects/produto.dart';
+import 'package:shared_preferences_mercado/produtos.dart';
+import 'package:shared_preferences_mercado/server/shared_preference_service.dart';
 
-class home extends StatelessWidget {
+class home extends StatefulWidget {
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  List<Produto> _produtos = [];
+  final SharedPreferenceService _preferencesService = SharedPreferenceService();
+  final TextEditingController _produtoController = TextEditingController();
+
+  Future<void> _loadProdutos() async {
+    List<Produto> produtos = await _preferencesService.getProdutos();
+    setState(() {
+      _produtos = produtos;
+    });
+  }
+
+  Future<void> _removeProduto(int index) async {
+    setState(() {
+      _produtos.removeAt(index);
+    });
+    await _preferencesService.saveProdutos(_produtos);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProdutos();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,143 +46,11 @@ class home extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            'assets/imagem/image1.png',
-                            width: 200,
-                          ),
-                          const Text('Fruits e Vegetables')
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/imagem/image3.png',
-                          width: 200,
-                        ),
-                        const Text('Beverages')
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/imagem/image5.png',
-                          width: 200,
-                        ),
-                        const Text('Fruits e Vegetables')
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/imagem/image2.png',
-                          width: 200,
-                        ),
-                        const Text('Breakfast')
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/imagem/image4.png',
-                          width: 200,
-                        ),
-                        const Text('Meat & Fish')
-                      ],
-                    ),
-                  ),
-                ),
-                Card(
-                  elevation: 4,
-                  margin: const EdgeInsets.all(16),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    hoverColor: const Color.fromARGB(255, 233, 222, 222),
-                    onTap: () {
-                      print("r4g4rg4r");
-                    },
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/imagem/image6.png',
-                          width: 200,
-                        ),
-                        const Text('Dairy')
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+          child: ListView.builder(
+              itemCount: _produtos.length,
+              itemBuilder: (context, index) {
+                return CardProduto(produto: _produtos[index]);
+              })),
       bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
@@ -182,6 +85,18 @@ class home extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => cadastroproduto()),
+                );
+                break;
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => produtos()),
+                );
+                break;
+              case 3:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => morewhishlist()),
                 );
                 break;
               default:
